@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import { useEffect, useState } from "react";
+import logoImg from "../public/logo.png";
 import styles from "./hero.module.css";
 
 export default function Hero() {
@@ -46,14 +47,9 @@ export default function Hero() {
 
         <div className={styles.glitchWrapper}>
           <Image
-            src="https://img.itch.zone/aW1nLzIxMjIyMjg4LnBuZw==/original/6fEP1K.png"
+            src={logoImg}
             alt="frenzytimes logo"
-            width={800}
-            height={250}
             className={styles.heroLogo}
-            style={{
-              filter: "drop-shadow(0 0 20px rgba(221, 74, 74, 0.5))",
-            }}
             priority
           />
         </div>
