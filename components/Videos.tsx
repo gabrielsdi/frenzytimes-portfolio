@@ -1,6 +1,3 @@
-"use client";
-
-import { useState, useEffect } from "react";
 import Image from "next/image";
 import styles from "./videos.module.css";
 
@@ -11,6 +8,7 @@ interface Video {
   title: string;
   meta: string;
   type: "Devlog" | "Short";
+  isAgeRestricted?: boolean;
 }
 
 const devlogVideo: Video = {
@@ -30,6 +28,7 @@ const shortsVideos: Video[] = [
     title: "Broken Leash — Gameplay Short",
     meta: "Short • Broken Leash",
     type: "Short",
+    isAgeRestricted: true,
   },
   {
     id: "short-crimson-faith",
@@ -50,28 +49,6 @@ const shortsVideos: Video[] = [
 ];
 
 export default function Videos() {
-  const [selectedVideo, setSelectedVideo] = useState<Video | null>(null);
-
-  useEffect(() => {
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === "Escape") {
-        setSelectedVideo(null);
-      }
-    };
-
-    if (selectedVideo) {
-      document.body.style.overflow = "hidden";
-      window.addEventListener("keydown", handleKeyDown);
-    } else {
-      document.body.style.overflow = "";
-    }
-
-    return () => {
-      document.body.style.overflow = "";
-      window.removeEventListener("keydown", handleKeyDown);
-    };
-  }, [selectedVideo]);
-
   return (
     <section id="videos" className={`section ${styles.videos}`}>
       <div className="container">
@@ -81,8 +58,8 @@ export default function Videos() {
           <div className="section-divider" />
         </div>
 
-        {/* Featured Devlog Video */}
-        <div style={{ marginBottom: "40px" }}>
+        {/* Featured Devlog Video Embed */}
+        <div style={{ marginBottom: "48px" }}>
           <h3
             style={{
               fontSize: "0.8rem",
@@ -94,31 +71,16 @@ export default function Videos() {
           >
             [FEATURED DEVLOG]
           </h3>
-          <div
-            className={styles.videoCard}
-            id={`video-card-${devlogVideo.id}`}
-            onClick={() => setSelectedVideo(devlogVideo)}
-            onKeyDown={(e) => {
-              if (e.key === "Enter" || e.key === " ") {
-                e.preventDefault();
-                setSelectedVideo(devlogVideo);
-              }
-            }}
-            role="button"
-            tabIndex={0}
-            style={{ display: "block", maxWidth: "700px", margin: "0 auto", cursor: "pointer" }}
-          >
-            <div className={styles.videoThumb} style={{ aspectRatio: "16 / 9" }}>
-              <Image
-                src={`https://img.youtube.com/vi/${devlogVideo.youtubeId}/hqdefault.jpg`}
-                alt={devlogVideo.title}
-                fill
-                sizes="(max-width: 768px) 100vw, 700px"
-                unoptimized
+          <div className={styles.devlogCard} id={`video-card-${devlogVideo.id}`}>
+            <div className={styles.devlogPlayerWrapper}>
+              <iframe
+                src={`https://www.youtube.com/embed/${devlogVideo.youtubeId}?rel=0`}
+                title={devlogVideo.title}
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                allowFullScreen
+                loading="lazy"
+                className={styles.iframe}
               />
-              <div className={styles.videoPlayOverlay}>
-                <div className={styles.videoPlayIcon}>▶</div>
-              </div>
             </div>
             <div className={styles.videoInfo}>
               <p className={styles.videoTitle} style={{ fontSize: "0.7rem" }}>
@@ -142,38 +104,58 @@ export default function Videos() {
           >
             [YOUTUBE SHORTS]
           </h3>
-          <div className={styles.videosGrid}>
+          <div className={styles.shortsGrid}>
             {shortsVideos.map((video) => (
-              <div
-                key={video.id}
-                className={styles.videoCard}
-                id={`video-card-${video.id}`}
-                onClick={() => setSelectedVideo(video)}
-                onKeyDown={(e) => {
-                  if (e.key === "Enter" || e.key === " ") {
-                    e.preventDefault();
-                    setSelectedVideo(video);
-                  }
-                }}
-                role="button"
-                tabIndex={0}
-                style={{ cursor: "pointer" }}
-              >
-                <div className={styles.videoThumb}>
-                  <Image
-                    src={`https://img.youtube.com/vi/${video.youtubeId}/hqdefault.jpg`}
-                    alt={video.title}
-                    fill
-                    sizes="(max-width: 768px) 100vw, 33vw"
-                    unoptimized
-                  />
-                  <div className={styles.videoPlayOverlay}>
-                    <div className={styles.videoPlayIcon}>▶</div>
+              <div key={video.id} className={styles.shortCard} id={`video-card-${video.id}`}>
+                {video.isAgeRestricted ? (
+                  <a
+                    href={video.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={styles.ageRestrictedLink}
+                  >
+                    <div className={styles.shortThumb}>
+                      <Image
+                        src={`https://img.youtube.com/vi/${video.youtubeId}/hqdefault.jpg`}
+                        alt={video.title}
+                        fill
+                        sizes="(max-width: 768px) 100vw, 33vw"
+                        unoptimized
+                      />
+                      <div className={styles.ageBadge}>⚠️ 18+ AGE RESTRICTED</div>
+                      <div className={styles.agePlayOverlay}>
+                        <span className={styles.agePlayBtn}>▶ WATCH ON YOUTUBE</span>
+                      </div>
+                    </div>
+                  </a>
+                ) : (
+                  <div className={styles.shortPlayerWrapper}>
+                    <iframe
+                      src={`https://www.youtube.com/embed/${video.youtubeId}?rel=0`}
+                      title={video.title}
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                      allowFullScreen
+                      loading="lazy"
+                      className={styles.iframe}
+                    />
                   </div>
-                </div>
+                )}
+
                 <div className={styles.videoInfo}>
                   <p className={styles.videoTitle}>{video.title}</p>
-                  <p className={styles.videoMeta}>{video.meta}</p>
+                  <div className={styles.metaRow}>
+                    <p className={styles.videoMeta}>{video.meta}</p>
+                    {video.isAgeRestricted && (
+                      <a
+                        href={video.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className={styles.ytDirectBtn}
+                      >
+                        YouTube ↗
+                      </a>
+                    )}
+                  </div>
                 </div>
               </div>
             ))}
@@ -192,66 +174,9 @@ export default function Videos() {
           </a>
         </div>
       </div>
-
-      {/* Retro Video Player Modal */}
-      {selectedVideo && (
-        <div
-          className={styles.modalOverlay}
-          onClick={() => setSelectedVideo(null)}
-          id="video-modal-backdrop"
-        >
-          <div
-            className={`${styles.modalContainer} ${
-              selectedVideo.type === "Short" ? styles.modalContainerShort : ""
-            }`}
-            onClick={(e) => e.stopPropagation()}
-            id="video-modal-container"
-          >
-            <div className={styles.modalHeader}>
-              <div className={styles.modalTitle} title={selectedVideo.title}>
-                [SYSTEM_MEDIA] :: {selectedVideo.title}
-              </div>
-              <button
-                className={styles.modalClose}
-                onClick={() => setSelectedVideo(null)}
-                id="video-modal-close"
-                aria-label="Close Video Modal"
-              >
-                [X] CLOSE
-              </button>
-            </div>
-
-            <div
-              className={`${styles.iframeWrapper} ${
-                selectedVideo.type === "Short"
-                  ? styles.iframeWrapper916
-                  : styles.iframeWrapper169
-              }`}
-            >
-              <iframe
-                src={`https://www.youtube.com/embed/${selectedVideo.youtubeId}?autoplay=1&rel=0`}
-                title={selectedVideo.title}
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                allowFullScreen
-                className={styles.iframe}
-              />
-            </div>
-
-            <div className={styles.modalFooter}>
-              <span>{selectedVideo.meta}</span>
-              <a
-                href={selectedVideo.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                className={styles.modalYtLink}
-              >
-                Open in YouTube ↗
-              </a>
-            </div>
-          </div>
-        </div>
-      )}
     </section>
   );
 }
+
+
 
