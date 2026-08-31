@@ -47,21 +47,21 @@
 /* Image container */
 .cardImageWrap {
   position: relative;
-  aspect-ratio: 16 / 9;
+  aspect-ratio: 315 / 250;
   overflow: hidden;
-  background: var(--color-dark);
+  background: var(--color-black);
 }
 
 .cardImage {
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: contain;
   transition: transform var(--transition-slow), filter var(--transition-med);
   filter: saturate(0.85) brightness(0.9);
 }
 
 .card:hover .cardImage {
-  transform: scale(1.05);
+  transform: scale(1.03);
   filter: saturate(1) brightness(1);
 }
 
