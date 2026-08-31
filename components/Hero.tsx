@@ -24,20 +24,21 @@ export default function Hero() {
     <section id="hero" className={styles.hero}>
       <div className={styles.heroBg} />
 
-      {/* VHS Timestamp */}
-      <div className={styles.heroTimestamp} aria-hidden="true">
-        {new Date().toLocaleDateString("en-US", {
-          year: "numeric",
-          month: "2-digit",
-          day: "2-digit",
-        })}{" "}
-        {time}
-      </div>
+      {/* VHS Top Bar (Timestamp & REC) */}
+      <div className={styles.vhsBar} aria-hidden="true">
+        <div className={styles.heroTimestamp}>
+          {new Date().toLocaleDateString("en-US", {
+            year: "numeric",
+            month: "2-digit",
+            day: "2-digit",
+          })}{" "}
+          {time}
+        </div>
 
-      {/* REC indicator */}
-      <div className={styles.heroRec} aria-hidden="true">
-        <span className={styles.recDot} />
-        REC
+        <div className={styles.heroRec}>
+          <span className={styles.recDot} />
+          REC
+        </div>
       </div>
 
       <div className={styles.heroContent}>

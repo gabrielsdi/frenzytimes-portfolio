@@ -1,5 +1,18 @@
 .games {
+  position: relative;
   background: var(--color-black);
+  border-top: 1px solid var(--color-border);
+  overflow: hidden;
+}
+
+.games::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--color-red), transparent);
 }
 
 /* List of Game Rows */
@@ -11,7 +24,7 @@
 
 .gameRow {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1.25fr 0.75fr;
   gap: 28px;
   align-items: flex-start;
   animation: cardReveal 0.6s ease both;
@@ -22,60 +35,36 @@
   border: 1px solid var(--color-border);
   background: var(--color-surface);
   position: relative;
-  transition: all var(--transition-med);
   overflow: hidden;
   display: flex;
   flex-direction: column;
 }
 
-.card:hover {
-  border-color: var(--color-red-dark);
-  box-shadow:
-    0 0 30px var(--color-red-glow),
-    0 20px 60px rgba(0, 0, 0, 0.6);
-  transform: translateY(-4px);
+/* Card Media Grid: Cover (Left) & Carousel (Right) */
+.cardMediaGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  background: rgba(0, 0, 0, 0.5);
+  padding: 12px;
+  border-bottom: 1px solid var(--color-border);
 }
 
-/* VHS tape label on top */
-.cardTapeLabel {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 4px;
-  background: var(--color-red);
-  z-index: 2;
-  opacity: 0;
-  transition: opacity var(--transition-med);
-}
-
-.card:hover .cardTapeLabel {
-  opacity: 1;
-}
-
-/* Image container */
-.cardImageWrap {
+.mediaWrap {
   position: relative;
-  aspect-ratio: 315 / 250;
-  overflow: hidden;
-  background: var(--color-black);
-}
-
-.cardImage {
   width: 100%;
-  height: 100%;
-  object-fit: contain;
-  transition: transform var(--transition-slow), filter var(--transition-med);
-  filter: saturate(0.85) brightness(0.9);
+  height: 290px;
+  background: var(--color-black);
+  border: 1px solid var(--color-border-bright);
+  overflow: hidden;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.card:hover .cardImage {
-  transform: scale(1.03);
-  filter: saturate(1) brightness(1);
-}
-
-/* VHS scanlines over image */
-.cardImageWrap::after {
+/* VHS scanlines */
+.mediaWrap::after {
   content: "";
   position: absolute;
   inset: 0;
@@ -90,9 +79,217 @@
   z-index: 1;
 }
 
-/* Content */
+.mediaImage {
+  object-fit: contain;
+  width: 100%;
+  height: 100%;
+  transition: transform var(--transition-fast);
+}
+
+.mediaWrap:hover .mediaImage {
+  transform: scale(1.02);
+}
+
+.mediaBadge {
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  z-index: 3;
+  font-family: var(--font-pixel);
+  font-size: 0.38rem;
+  letter-spacing: 0.12em;
+  color: var(--color-white);
+  background: rgba(0, 0, 0, 0.75);
+  padding: 3px 6px;
+  border: 1px solid var(--color-border);
+  pointer-events: none;
+}
+
+.zoomHint {
+  position: absolute;
+  bottom: 8px;
+  right: 8px;
+  z-index: 3;
+  background: rgba(0, 0, 0, 0.7);
+  color: var(--color-gray-mid);
+  padding: 4px;
+  border-radius: 2px;
+  border: 1px solid var(--color-border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0.7;
+  transition: opacity var(--transition-fast), color var(--transition-fast);
+}
+
+.mediaWrap:hover .zoomHint {
+  opacity: 1;
+  color: var(--color-red);
+}
+
+/* Screenshot Carousel Container */
+.carouselContainer {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.carouselNav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 5;
+  background: rgba(18, 18, 20, 0.85);
+  color: var(--color-white);
+  border: 1px solid var(--color-border-bright);
+  width: 30px;
+  height: 30px;
+  font-size: 1.2rem;
+  line-height: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  user-select: none;
+}
+
+.carouselNav:hover {
+  background: var(--color-red);
+  border-color: var(--color-red-bright);
+  color: #fff;
+  box-shadow: 0 0 10px var(--color-red-glow);
+}
+
+.carouselNavPrev {
+  left: 6px;
+}
+
+.carouselNavNext {
+  right: 6px;
+}
+
+.carouselDots {
+  display: flex;
+  gap: 6px;
+  padding-top: 6px;
+  justify-content: center;
+}
+
+.carouselDot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--color-border-bright);
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.carouselDot:hover {
+  background: var(--color-gray-mid);
+}
+
+.carouselDotActive {
+  background: var(--color-red);
+  box-shadow: 0 0 6px var(--color-red-glow);
+  transform: scale(1.2);
+}
+
+/* Lightbox Modal */
+.modalBackdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background: rgba(0, 0, 0, 0.88);
+  backdrop-filter: blur(8px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.modalContent {
+  background: var(--color-surface);
+  border: 1px solid var(--color-red-dark);
+  box-shadow: 0 0 40px rgba(255, 0, 0, 0.25), 0 20px 50px rgba(0, 0, 0, 0.9);
+  max-width: 900px;
+  width: 95vw;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  position: relative;
+}
+
+.modalHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 18px;
+  background: #0d0d10;
+  border-bottom: 1px solid var(--color-border-bright);
+}
+
+.modalTitle {
+  font-family: var(--font-pixel);
+  font-size: 0.5rem;
+  color: var(--color-white);
+  letter-spacing: 0.1em;
+}
+
+.modalCloseBtn {
+  font-family: var(--font-pixel);
+  font-size: 0.42rem;
+  color: var(--color-red);
+  background: transparent;
+  border: 1px solid var(--color-red-dark);
+  padding: 4px 8px;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.modalCloseBtn:hover {
+  background: var(--color-red);
+  color: var(--color-white);
+}
+
+.modalImageWrap {
+  position: relative;
+  width: 100%;
+  height: 70vh;
+  max-height: 600px;
+  background: #000;
+}
+
+.modalImage {
+  object-fit: contain;
+}
+
+.modalDots {
+  display: flex;
+  gap: 8px;
+  padding: 12px 0;
+  background: #0d0d10;
+  justify-content: center;
+  border-top: 1px solid var(--color-border);
+}
+
+@media (max-width: 600px) {
+  .cardMediaGrid {
+    grid-template-columns: 1fr;
+  }
+  .mediaWrap {
+    height: 180px;
+  }
+  .modalImageWrap {
+    height: 55vh;
+  }
+}
+
+/* Card Content Body */
 .cardContent {
-  padding: 22px;
+  padding: 24px;
   display: flex;
   flex-direction: column;
   flex-grow: 1;
@@ -102,8 +299,8 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 10px;
-  gap: 8px;
+  margin-bottom: 14px;
+  gap: 12px;
 }
 
 .cardGenre {
@@ -121,6 +318,7 @@
   border: 1px solid var(--color-red-dark);
   padding: 4px 8px;
   letter-spacing: 0.05em;
+  white-space: nowrap;
 }
 
 .cardPriceFree {
@@ -130,15 +328,11 @@
 
 .cardTitle {
   font-family: var(--font-pixel);
-  font-size: clamp(0.7rem, 2vw, 0.9rem);
+  font-size: clamp(0.75rem, 1.8vw, 0.95rem);
   color: var(--color-white);
-  margin-bottom: 12px;
+  margin-bottom: 14px;
   line-height: 1.4;
-  transition: color var(--transition-fast);
-}
-
-.card:hover .cardTitle {
-  color: var(--color-red);
+  letter-spacing: 0.02em;
 }
 
 .cardDescription {
@@ -152,7 +346,7 @@
 .cardTags {
   display: flex;
   flex-wrap: wrap;
-  gap: 6px;
+  gap: 8px;
   margin-bottom: 20px;
 }
 
@@ -175,7 +369,7 @@
 }
 
 .cardPlatform {
-  font-size: 0.75rem;
+  font-size: 0.78rem;
   color: var(--color-gray-dim);
   display: flex;
   align-items: center;
@@ -209,7 +403,7 @@
 .reviewsColumn {
   display: flex;
   flex-direction: column;
-  gap: 14px;
+  gap: 10px;
   align-self: flex-start;
   width: 100%;
 }
@@ -219,7 +413,7 @@
   border-left: 3px solid var(--color-red-dark);
   background: var(--color-surface);
   position: relative;
-  padding: 20px;
+  padding: 14px 16px;
   display: flex;
   flex-direction: column;
   align-self: flex-start;
@@ -231,12 +425,12 @@
 
 .reviewBadgeHeader {
   display: flex;
-  margin-bottom: 10px;
+  margin-bottom: 8px;
 }
 
 .reviewTag {
   font-family: var(--font-pixel);
-  font-size: 0.38rem;
+  font-size: 0.35rem;
   letter-spacing: 0.15em;
   color: var(--color-red);
   text-transform: uppercase;
@@ -246,22 +440,22 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 12px;
-  padding-bottom: 12px;
+  gap: 10px;
+  padding-bottom: 10px;
   border-bottom: 1px solid var(--color-border);
 }
 
 .reviewHeaderLeft {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 8px;
   flex-wrap: wrap;
 }
 
 .reviewStars {
   color: #ff3b3b;
-  font-size: 1rem;
-  letter-spacing: 2px;
+  font-size: 0.85rem;
+  letter-spacing: 1px;
   text-shadow: 0 0 6px rgba(255, 59, 59, 0.4);
   line-height: 1;
 }
