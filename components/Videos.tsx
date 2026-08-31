@@ -56,30 +56,6 @@ export default function Videos() {
           <div className="section-divider" />
         </div>
 
-        {/* Channel Banner */}
-        <div className={styles.channelBanner} id="youtube-channel-banner">
-          <div className={styles.channelIcon} aria-hidden="true">
-            <svg width="22" height="16" viewBox="0 0 22 16" fill="white">
-              <path d="M21.543 2.386A2.76 2.76 0 0 0 19.607.4C17.885 0 11 0 11 0S4.115 0 2.393.4A2.76 2.76 0 0 0 .457 2.386C0 4.122 0 8 0 8s0 3.878.457 5.614A2.76 2.76 0 0 0 2.393 15.6C4.115 16 11 16 11 16s6.885 0 8.607-.4a2.76 2.76 0 0 0 1.936-1.986C22 11.878 22 8 22 8s0-3.878-.457-5.614zM8.75 11.5v-7L14.5 8l-5.75 3.5z" />
-            </svg>
-          </div>
-          <div className={styles.channelInfo}>
-            <p className={styles.channelName}>frenzytimes</p>
-            <p className={styles.channelSub}>
-              Horror game dev · Retro PSX content · Gameplays & Shorts
-            </p>
-          </div>
-          <a
-            href="https://www.youtube.com/@frenzytimes"
-            className={styles.channelLink}
-            target="_blank"
-            rel="noopener noreferrer"
-            id="youtube-subscribe-btn"
-          >
-            Visit Channel →
-          </a>
-        </div>
-
         {/* Featured Devlog Video */}
         <div style={{ marginBottom: "40px" }}>
           <h3

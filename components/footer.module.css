@@ -16,8 +16,9 @@
 }
 
 .footerGrid {
-  display: grid;
-  grid-template-columns: 2fr 1fr 1fr;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
   gap: 48px;
   margin-bottom: 48px;
 }
