@@ -52,6 +52,8 @@
   align-items: center;
   gap: 32px;
   list-style: none;
+  flex-wrap: nowrap;
+  white-space: nowrap;
 }
 
 .navbarLinks a {
@@ -118,9 +120,9 @@
   display: none;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 900px) {
   .navbarLinks {
-    display: none;
+    display: none !important;
   }
 
   .navbarToggle {
@@ -138,12 +140,18 @@
     backdrop-filter: blur(16px);
     padding: 24px;
     transform: translateY(-110%);
-    transition: transform var(--transition-med);
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transition: transform var(--transition-med), opacity var(--transition-med), visibility var(--transition-med);
     z-index: 999;
   }
 
   .navbarMobile.open {
     transform: translateY(0);
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
   }
 
   .navbarMobile ul {

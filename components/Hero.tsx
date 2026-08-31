@@ -51,6 +51,7 @@ export default function Hero() {
             height={120}
             style={{
               maxWidth: "100%",
+              width: "auto",
               height: "auto",
               objectFit: "contain",
               filter: "drop-shadow(0 0 15px rgba(221, 74, 74, 0.4))",

@@ -203,3 +203,25 @@
   letter-spacing: 0.2em;
   color: var(--color-gray-dim);
 }
+
+@media (max-width: 900px) {
+  .heroSubtitle {
+    display: none;
+  }
+
+  .heroTimestamp {
+    top: 72px;
+    left: 16px;
+    z-index: 2;
+  }
+
+  .heroRec {
+    top: 72px;
+    right: 16px;
+    z-index: 2;
+  }
+
+  .heroContent {
+    padding-top: 84px;
+  }
+}
