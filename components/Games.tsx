@@ -17,32 +17,66 @@ function DefaultAvatar() {
   );
 }
 
+interface ModalData {
+  images: string[];
+  initialIndex: number;
+  title: string;
+}
+
 function ImageModal({
-  image,
+  data,
   onClose,
 }: {
-  image: { src: string; alt: string } | null;
+  data: ModalData | null;
   onClose: () => void;
 }) {
+  const [currentIndex, setCurrentIndex] = useState(0);
+
   useEffect(() => {
+    if (data) {
+      setCurrentIndex(data.initialIndex || 0);
+    }
+  }, [data]);
+
+  useEffect(() => {
+    if (!data) return;
+
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === "Escape") {
         onClose();
+      } else if (e.key === "ArrowLeft") {
+        setCurrentIndex((prev) => (prev === 0 ? data.images.length - 1 : prev - 1));
+      } else if (e.key === "ArrowRight") {
+        setCurrentIndex((prev) => (prev === data.images.length - 1 ? 0 : prev + 1));
       }
     };
-    if (image) {
-      window.addEventListener("keydown", handleKeyDown);
-    }
-    return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [image, onClose]);
 
-  if (!image) return null;
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [data, onClose]);
+
+  if (!data || !data.images || data.images.length === 0) return null;
+
+  const handlePrev = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    setCurrentIndex((prev) => (prev === 0 ? data.images.length - 1 : prev - 1));
+  };
+
+  const handleNext = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    setCurrentIndex((prev) => (prev === data.images.length - 1 ? 0 : prev + 1));
+  };
+
+  const currentImage = data.images[currentIndex];
 
   return (
     <div className={styles.modalBackdrop} onClick={onClose}>
       <div className={styles.modalContent} onClick={(e) => e.stopPropagation()}>
         <div className={styles.modalHeader}>
-          <span className={styles.modalTitle}>{image.alt}</span>
+          <span className={styles.modalTitle}>
+            {data.title}{" "}
+            {data.images.length > 1 && `(${currentIndex + 1}/${data.images.length})`}
+          </span>
           <button
             type="button"
             className={styles.modalCloseBtn}
@@ -54,14 +88,49 @@ function ImageModal({
         </div>
         <div className={styles.modalImageWrap}>
           <Image
-            src={image.src}
-            alt={image.alt}
+            src={currentImage}
+            alt={`${data.title} ${currentIndex + 1}`}
             fill
-            sizes="90vw"
+            sizes="95vw"
             className={styles.modalImage}
             priority
           />
+          {data.images.length > 1 && (
+            <>
+              <button
+                type="button"
+                className={`${styles.carouselNav} ${styles.carouselNavPrev}`}
+                onClick={handlePrev}
+                aria-label="Previous image"
+              >
+                ‹
+              </button>
+              <button
+                type="button"
+                className={`${styles.carouselNav} ${styles.carouselNavNext}`}
+                onClick={handleNext}
+                aria-label="Next image"
+              >
+                ›
+              </button>
+            </>
+          )}
         </div>
+        {data.images.length > 1 && (
+          <div className={styles.modalDots}>
+            {data.images.map((_, idx) => (
+              <button
+                key={idx}
+                type="button"
+                className={`${styles.carouselDot} ${
+                  idx === currentIndex ? styles.carouselDotActive : ""
+                }`}
+                onClick={() => setCurrentIndex(idx)}
+                aria-label={`Go to image ${idx + 1}`}
+              />
+            ))}
+          </div>
+        )}
       </div>
     </div>
   );
@@ -69,16 +138,23 @@ function ImageModal({
 
 function GameMediaCarousel({
   screenshots,
+  screenshotsHighRes,
   title,
   onOpenModal,
 }: {
   screenshots: string[];
+  screenshotsHighRes?: string[];
   title: string;
-  onOpenModal: (src: string, alt: string) => void;
+  onOpenModal: (images: string[], initialIndex: number, title: string) => void;
 }) {
   const [currentIndex, setCurrentIndex] = useState(0);
 
   if (!screenshots || screenshots.length === 0) return null;
+
+  const highResList =
+    screenshotsHighRes && screenshotsHighRes.length === screenshots.length
+      ? screenshotsHighRes
+      : screenshots;
 
   const handlePrev = (e: React.MouseEvent) => {
     e.stopPropagation();
@@ -94,9 +170,7 @@ function GameMediaCarousel({
     <div className={styles.carouselContainer}>
       <div
         className={styles.mediaWrap}
-        onClick={() =>
-          onOpenModal(screenshots[currentIndex], `${title} - Screenshot ${currentIndex + 1}`)
-        }
+        onClick={() => onOpenModal(highResList, currentIndex, `${title} - Screenshot`)}
         role="button"
         tabIndex={0}
         title="Click to view large image"
@@ -164,19 +238,19 @@ function GameMediaCarousel({
 }
 
 export default function Games() {
-  const [modalImage, setModalImage] = useState<{ src: string; alt: string } | null>(null);
+  const [modalData, setModalData] = useState<ModalData | null>(null);
 
-  const handleOpenModal = (src: string, alt: string) => {
-    setModalImage({ src, alt });
+  const handleOpenModal = (images: string[], initialIndex: number, title: string) => {
+    setModalData({ images, initialIndex, title });
   };
 
   const handleCloseModal = () => {
-    setModalImage(null);
+    setModalData(null);
   };
 
   return (
     <section id="games" className={`section ${styles.games}`}>
-      <ImageModal image={modalImage} onClose={handleCloseModal} />
+      <ImageModal data={modalData} onClose={handleCloseModal} />
 
       <div className="container">
         <div className="section-header">
@@ -200,7 +274,9 @@ export default function Games() {
                   {/* Cover Frame */}
                   <div
                     className={styles.mediaWrap}
-                    onClick={() => handleOpenModal(game.coverImage, `${game.title} - Cover Art`)}
+                    onClick={() =>
+                      handleOpenModal([game.coverImage], 0, `${game.title} - Cover Art`)
+                    }
                     role="button"
                     tabIndex={0}
                     title="Click to view large image"
@@ -234,6 +310,7 @@ export default function Games() {
                   {/* Carousel Frame */}
                   <GameMediaCarousel
                     screenshots={game.screenshots}
+                    screenshotsHighRes={game.screenshotsHighRes}
                     title={game.title}
                     onOpenModal={handleOpenModal}
                   />

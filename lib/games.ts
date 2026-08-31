@@ -20,6 +20,7 @@ export interface Game {
   itchUrl: string;
   coverImage: string;
   screenshots: string[];
+  screenshotsHighRes?: string[];
   tags: string[];
   reviews: GameReview[];
 }
@@ -36,6 +37,13 @@ export const BROKEN_LEASH_IMAGES = [
   "https://img.itch.zone/aW1hZ2UvMzkwOTUxOC8yMzMzNDg2MC5wbmc=/347x500/MZqlUf.png",
   "https://img.itch.zone/aW1hZ2UvMzkwOTUxOC8yMzMzNDg2My5wbmc=/347x500/03GZ7G.png",
   "https://img.itch.zone/aW1hZ2UvMzkwOTUxOC8yMzMzNDg2NS5wbmc=/347x500/x8CMk6.png",
+];
+
+export const BROKEN_LEASH_HIGH_RES_IMAGES = [
+  "https://img.itch.zone/aW1hZ2UvMzkwOTUxOC8yMzMzNDg2My5wbmc=/original/E%2FzpQH.png",
+  "https://img.itch.zone/aW1hZ2UvMzkwOTUxOC8yMzMzNDg2Mi5wbmc=/original/HpM%2Bx0.png",
+  "https://img.itch.zone/aW1hZ2UvMzkwOTUxOC8yMzMzNDg2NC5wbmc=/original/8wLXHl.png",
+  "https://img.itch.zone/aW1hZ2UvMzkwOTUxOC8yMzMzNDg2NS5wbmc=/original/7JNdRB.png",
 ];
 
 export const CRIMSON_FAITH_IMAGES = [
@@ -57,6 +65,7 @@ export const games: Game[] = [
     itchUrl: "https://frenzytimes.itch.io/broken-leash",
     coverImage: "https://img.itch.zone/aW1nLzIzNzg5MjU1LnBuZw==/315x250%23c/lqA3Bg.png",
     screenshots: BROKEN_LEASH_IMAGES,
+    screenshotsHighRes: BROKEN_LEASH_HIGH_RES_IMAGES,
     tags: ["Horror", "Survival", "PSX"],
     reviews: [
       {

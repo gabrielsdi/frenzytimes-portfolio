@@ -253,6 +253,15 @@
   object-fit: contain;
 }
 
+.modalDots {
+  display: flex;
+  gap: 8px;
+  padding: 12px 0;
+  background: #0d0d10;
+  justify-content: center;
+  border-top: 1px solid var(--color-border);
+}
+
 @media (max-width: 600px) {
   .cardMediaGrid {
     grid-template-columns: 1fr;
