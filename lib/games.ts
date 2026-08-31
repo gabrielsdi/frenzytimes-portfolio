@@ -19,9 +19,31 @@ export interface Game {
   price: string | null;
   itchUrl: string;
   coverImage: string;
+  screenshots: string[];
   tags: string[];
   reviews: GameReview[];
 }
+
+export const PRAYERS_FROM_THE_ABYSS_IMAGES = [
+  "https://img.itch.zone/aW1hZ2UvMjUxMjcxNy8xNDkzNTQ4MS5wbmc=/347x500/ftmaxp.png",
+  "https://img.itch.zone/aW1hZ2UvMjUxMjcxNy8xNDkzNTQ4MC5wbmc=/347x500/hjG8Ki.png",
+  "https://img.itch.zone/aW1hZ2UvMjUxMjcxNy8xNDkzNTQ3OS5wbmc=/347x500/%2Fbl1yM.png",
+  "https://img.itch.zone/aW1hZ2UvMjUxMjcxNy8xNDkzNTQ4Mi5wbmc=/347x500/nh0Pkw.png",
+];
+
+export const BROKEN_LEASH_IMAGES = [
+  "https://img.itch.zone/aW1hZ2UvMzkwOTUxOC8yMzMzNDg2MS5wbmc=/347x500/q5ipy2.png",
+  "https://img.itch.zone/aW1hZ2UvMzkwOTUxOC8yMzMzNDg2MC5wbmc=/347x500/MZqlUf.png",
+  "https://img.itch.zone/aW1hZ2UvMzkwOTUxOC8yMzMzNDg2My5wbmc=/347x500/03GZ7G.png",
+  "https://img.itch.zone/aW1hZ2UvMzkwOTUxOC8yMzMzNDg2NS5wbmc=/347x500/x8CMk6.png",
+];
+
+export const CRIMSON_FAITH_IMAGES = [
+  "https://img.itch.zone/aW1hZ2UvMzUyNTU1MS8yMTIyNDQ5NC5wbmc=/347x500/6qhUTU.png",
+  "https://img.itch.zone/aW1hZ2UvMzUyNTU1MS8yMTIyNDQ5Mi5wbmc=/347x500/hwujs4.png",
+  "https://img.itch.zone/aW1hZ2UvMzUyNTU1MS8yMTIyNDQ5My5wbmc=/347x500/FBy0Ab.png",
+  "https://img.itch.zone/aW1hZ2UvMzUyNTU1MS8yMTIyNDQ5MS5wbmc=/347x500/qpOYq8.png",
+];
 
 export const games: Game[] = [
   {
@@ -34,6 +56,7 @@ export const games: Game[] = [
     price: "Free",
     itchUrl: "https://frenzytimes.itch.io/broken-leash",
     coverImage: "https://img.itch.zone/aW1nLzIzNzg5MjU1LnBuZw==/315x250%23c/lqA3Bg.png",
+    screenshots: BROKEN_LEASH_IMAGES,
     tags: ["Horror", "Survival", "PSX"],
     reviews: [
       {
@@ -73,6 +96,7 @@ export const games: Game[] = [
     price: "$2.99",
     itchUrl: "https://frenzytimes.itch.io/crimson-faith",
     coverImage: "https://img.itch.zone/aW1nLzIzNzkzMzcxLnBuZw==/315x250%23c/k3wQco.png",
+    screenshots: CRIMSON_FAITH_IMAGES,
     tags: ["Horror", "Adventure", "PSX"],
     reviews: [
       {
@@ -105,6 +129,7 @@ export const games: Game[] = [
     price: "DEMO",
     itchUrl: "https://frenzytimes.itch.io/prayers-from-the-abyss",
     coverImage: "https://img.itch.zone/aW1nLzIxMjQwNjI0LnBuZw==/315x250%23c/tYoOxT.png",
+    screenshots: PRAYERS_FROM_THE_ABYSS_IMAGES,
     tags: ["Horror", "DEMO", "PSX"],
     reviews: [
       {
