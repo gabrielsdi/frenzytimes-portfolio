@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { useEffect, useState } from "react";
 import styles from "./hero.module.css";
 
@@ -42,14 +43,21 @@ export default function Hero() {
       <div className={styles.heroContent}>
         <p className={styles.heroSubtitle}>Indie Game Developer</p>
 
-        <div className={styles.glitchWrapper}>
-          <h1
-            className={styles.heroTitle}
-            data-text="frenzytimes"
-            id="hero-title"
-          >
-            frenzytimes
-          </h1>
+        <div className={styles.glitchWrapper} style={{ marginBottom: "16px" }}>
+          <Image
+            src="https://img.itch.zone/aW1nLzIxMjIyMjg4LnBuZw==/original/6fEP1K.png"
+            alt="frenzytimes logo"
+            width={380}
+            height={120}
+            style={{
+              maxWidth: "100%",
+              height: "auto",
+              objectFit: "contain",
+              filter: "drop-shadow(0 0 15px rgba(221, 74, 74, 0.4))",
+            }}
+            unoptimized
+            priority
+          />
         </div>
 
         <div className={styles.heroDivider} aria-hidden="true" />
@@ -67,15 +75,6 @@ export default function Hero() {
             id="hero-cta-games"
           >
             ▶ View Games
-          </a>
-          <a
-            href="https://frenzytimes.itch.io/"
-            className="btn btn-outline"
-            target="_blank"
-            rel="noopener noreferrer"
-            id="hero-cta-itchio"
-          >
-            itch.io Profile
           </a>
         </div>
       </div>

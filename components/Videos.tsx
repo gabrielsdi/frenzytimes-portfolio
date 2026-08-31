@@ -1,26 +1,48 @@
 import Image from "next/image";
 import styles from "./videos.module.css";
 
-// Hardcoded video entries from the frenzytimes YouTube channel
-// Thumbnails use the standard YouTube thumbnail URL pattern
-const videos = [
+interface Video {
+  id: string;
+  url: string;
+  youtubeId: string;
+  title: string;
+  meta: string;
+  type: "Devlog" | "Short";
+}
+
+const devlogVideo: Video = {
+  id: "devlog-main",
+  url: "https://www.youtube.com/watch?v=qP1KIECbr4Q",
+  youtubeId: "qP1KIECbr4Q",
+  title: "Game Devlog — Creating Retro PSX Horror Games",
+  meta: "Featured Devlog • frenzytimes",
+  type: "Devlog",
+};
+
+const shortsVideos: Video[] = [
   {
-    id: "broken-leash-gameplay",
-    youtubeId: "qHKCnq_sXpg",
-    title: "Broken Leash — Survival Horror Gameplay",
-    meta: "Gameplay • frenzytimes",
+    id: "short-broken-leash",
+    url: "https://www.youtube.com/shorts/6G8UhUCF1Hw",
+    youtubeId: "6G8UhUCF1Hw",
+    title: "Broken Leash — Gameplay Short",
+    meta: "Short • Broken Leash",
+    type: "Short",
   },
   {
-    id: "crimson-faith-gameplay",
-    youtubeId: "Zr2AuYtj3jE",
-    title: "Crimson Faith — Full Walkthrough",
-    meta: "Walkthrough • frenzytimes",
+    id: "short-crimson-faith",
+    url: "https://www.youtube.com/shorts/iCXr8Q8CnDI",
+    youtubeId: "iCXr8Q8CnDI",
+    title: "Crimson Faith — Gameplay Short",
+    meta: "Short • Crimson Faith",
+    type: "Short",
   },
   {
-    id: "prayers-abyss-gameplay",
-    youtubeId: "kQ8J6yRTQhA",
-    title: "Prayers from the Abyss — Demo Gameplay",
-    meta: "Demo Gameplay • frenzytimes",
+    id: "short-prayers-abyss",
+    url: "https://www.youtube.com/shorts/totcfDYgKpE",
+    youtubeId: "totcfDYgKpE",
+    title: "Prayers from the Abyss — DEMO Short",
+    meta: "Short • Prayers from the Abyss (DEMO)",
+    type: "Short",
   },
 ];
 
@@ -29,8 +51,8 @@ export default function Videos() {
     <section id="videos" className={`section ${styles.videos}`}>
       <div className="container">
         <div className="section-header">
-          <span className="section-label">// videos</span>
-          <h2 className="section-title">Watch Gameplay</h2>
+          <span className="section-label">// videos & shorts</span>
+          <h2 className="section-title">Devlogs & Gameplay</h2>
           <div className="section-divider" />
         </div>
 
@@ -44,7 +66,7 @@ export default function Videos() {
           <div className={styles.channelInfo}>
             <p className={styles.channelName}>frenzytimes</p>
             <p className={styles.channelSub}>
-              Horror game dev · Retro PSX content · Gameplays
+              Horror game dev · Retro PSX content · Gameplays & Shorts
             </p>
           </div>
           <a
@@ -58,37 +80,90 @@ export default function Videos() {
           </a>
         </div>
 
-        {/* Videos Grid */}
-        <div className={styles.videosGrid}>
-          {videos.map((video) => (
-            <a
-              key={video.id}
-              href={`https://www.youtube.com/watch?v=${video.youtubeId}`}
-              className={styles.videoCard}
-              target="_blank"
-              rel="noopener noreferrer"
-              id={`video-card-${video.id}`}
-            >
-              <div className={styles.videoThumb}>
-                {/* Use YouTube's high-quality thumbnail */}
-                <Image
-                  src={`https://img.youtube.com/vi/${video.youtubeId}/hqdefault.jpg`}
-                  alt={video.title}
-                  fill
-                  sizes="(max-width: 768px) 100vw, 33vw"
-                  className=""
-                  unoptimized
-                />
-                <div className={styles.videoPlayOverlay}>
-                  <div className={styles.videoPlayIcon}>▶</div>
+        {/* Featured Devlog Video */}
+        <div style={{ marginBottom: "40px" }}>
+          <h3
+            style={{
+              fontSize: "0.8rem",
+              color: "var(--color-red)",
+              marginBottom: "16px",
+              fontFamily: "var(--font-pixel)",
+              letterSpacing: "0.1em",
+            }}
+          >
+            [FEATURED DEVLOG]
+          </h3>
+          <a
+            href={devlogVideo.url}
+            className={styles.videoCard}
+            target="_blank"
+            rel="noopener noreferrer"
+            id={`video-card-${devlogVideo.id}`}
+            style={{ display: "block", maxWidth: "700px", margin: "0 auto" }}
+          >
+            <div className={styles.videoThumb} style={{ aspectRatio: "16 / 9" }}>
+              <Image
+                src={`https://img.youtube.com/vi/${devlogVideo.youtubeId}/hqdefault.jpg`}
+                alt={devlogVideo.title}
+                fill
+                sizes="(max-width: 768px) 100vw, 700px"
+                unoptimized
+              />
+              <div className={styles.videoPlayOverlay}>
+                <div className={styles.videoPlayIcon}>▶</div>
+              </div>
+            </div>
+            <div className={styles.videoInfo}>
+              <p className={styles.videoTitle} style={{ fontSize: "0.7rem" }}>
+                {devlogVideo.title}
+              </p>
+              <p className={styles.videoMeta}>{devlogVideo.meta}</p>
+            </div>
+          </a>
+        </div>
+
+        {/* YouTube Shorts Section */}
+        <div>
+          <h3
+            style={{
+              fontSize: "0.8rem",
+              color: "var(--color-red)",
+              marginBottom: "16px",
+              fontFamily: "var(--font-pixel)",
+              letterSpacing: "0.1em",
+            }}
+          >
+            [YOUTUBE SHORTS]
+          </h3>
+          <div className={styles.videosGrid}>
+            {shortsVideos.map((video) => (
+              <a
+                key={video.id}
+                href={video.url}
+                className={styles.videoCard}
+                target="_blank"
+                rel="noopener noreferrer"
+                id={`video-card-${video.id}`}
+              >
+                <div className={styles.videoThumb}>
+                  <Image
+                    src={`https://img.youtube.com/vi/${video.youtubeId}/hqdefault.jpg`}
+                    alt={video.title}
+                    fill
+                    sizes="(max-width: 768px) 100vw, 33vw"
+                    unoptimized
+                  />
+                  <div className={styles.videoPlayOverlay}>
+                    <div className={styles.videoPlayIcon}>▶</div>
+                  </div>
                 </div>
-              </div>
-              <div className={styles.videoInfo}>
-                <p className={styles.videoTitle}>{video.title}</p>
-                <p className={styles.videoMeta}>{video.meta}</p>
-              </div>
-            </a>
-          ))}
+                <div className={styles.videoInfo}>
+                  <p className={styles.videoTitle}>{video.title}</p>
+                  <p className={styles.videoMeta}>{video.meta}</p>
+                </div>
+              </a>
+            ))}
+          </div>
         </div>
 
         <div style={{ textAlign: "center", marginTop: "48px" }}>
@@ -99,7 +174,7 @@ export default function Videos() {
             rel="noopener noreferrer"
             id="youtube-view-all"
           >
-            ▶ View All Videos
+            ▶ View All on YouTube
           </a>
         </div>
       </div>

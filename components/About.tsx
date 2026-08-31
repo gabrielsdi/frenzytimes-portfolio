@@ -58,22 +58,13 @@ export default function About() {
 
             <div className={styles.aboutLinks}>
               <a
-                href="https://frenzytimes.itch.io/"
-                className="btn btn-outline"
-                target="_blank"
-                rel="noopener noreferrer"
-                id="about-itchio-link"
-              >
-                itch.io
-              </a>
-              <a
                 href="https://www.youtube.com/@frenzytimes"
                 className="btn btn-outline"
                 target="_blank"
                 rel="noopener noreferrer"
                 id="about-youtube-link"
               >
-                YouTube
+                ▶ YouTube Channel
               </a>
             </div>
           </div>
