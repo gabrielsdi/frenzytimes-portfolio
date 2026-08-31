@@ -2,8 +2,7 @@
    FRENZYTIMES PORTFOLIO
    Global Styles — VHS/PSX Dark Horror
    =================================== */
-
-@import url("https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Inter:wght@300;400;500;600&display=swap");
+/* Note: Fonts loaded via next/font/google in layout.tsx (optimized, self-hosted, no render-blocking) */
 
 /* ---------- CSS Variables ---------- */
 :root {

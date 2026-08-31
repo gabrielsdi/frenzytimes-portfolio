@@ -44,20 +44,16 @@ export default function Hero() {
       <div className={styles.heroContent}>
         <p className={styles.heroSubtitle}>Indie Game Developer</p>
 
-        <div className={styles.glitchWrapper} style={{ marginBottom: "16px" }}>
+        <div className={styles.glitchWrapper}>
           <Image
             src="https://img.itch.zone/aW1nLzIxMjIyMjg4LnBuZw==/original/6fEP1K.png"
             alt="frenzytimes logo"
-            width={380}
-            height={120}
+            width={800}
+            height={250}
+            className={styles.heroLogo}
             style={{
-              maxWidth: "100%",
-              width: "auto",
-              height: "auto",
-              objectFit: "contain",
-              filter: "drop-shadow(0 0 15px rgba(221, 74, 74, 0.4))",
+              filter: "drop-shadow(0 0 20px rgba(221, 74, 74, 0.5))",
             }}
-            unoptimized
             priority
           />
         </div>

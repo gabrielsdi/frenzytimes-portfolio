@@ -103,6 +103,14 @@
   margin-bottom: 20px;
 }
 
+.heroLogo {
+  display: block;
+  width: clamp(280px, 55vw, 560px);
+  height: auto;
+  max-width: 100%;
+  object-fit: contain;
+}
+
 .heroTitle {
   font-family: var(--font-pixel);
   font-size: clamp(1.8rem, 8vw, 5rem);
