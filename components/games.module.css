@@ -2,11 +2,19 @@
   background: var(--color-black);
 }
 
-/* Grid */
-.gamesGrid {
+/* List of Game Rows */
+.gamesList {
+  display: flex;
+  flex-direction: column;
+  gap: 48px;
+}
+
+.gameRow {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+  grid-template-columns: 1fr 1fr;
   gap: 28px;
+  align-items: flex-start;
+  animation: cardReveal 0.6s ease both;
 }
 
 /* Card */
@@ -15,8 +23,9 @@
   background: var(--color-surface);
   position: relative;
   transition: all var(--transition-med);
-  animation: cardReveal 0.6s ease both;
   overflow: hidden;
+  display: flex;
+  flex-direction: column;
 }
 
 .card:hover {
@@ -81,44 +90,12 @@
   z-index: 1;
 }
 
-/* Overlay on hover */
-.cardOverlay {
-  position: absolute;
-  inset: 0;
-  background: rgba(221, 74, 74, 0.05);
-  opacity: 0;
-  transition: opacity var(--transition-med);
-  z-index: 2;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.card:hover .cardOverlay {
-  opacity: 1;
-}
-
-.cardPlayBtn {
-  width: 48px;
-  height: 48px;
-  border: 2px solid var(--color-white);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 1rem;
-  color: var(--color-white);
-  background: rgba(0, 0, 0, 0.5);
-  transition: background var(--transition-fast), border-color var(--transition-fast);
-}
-
-.cardPlayBtn:hover {
-  background: var(--color-red);
-  border-color: var(--color-red);
-}
-
 /* Content */
 .cardContent {
   padding: 22px;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
 }
 
 .cardMeta {
@@ -169,6 +146,7 @@
   color: var(--color-gray-mid);
   line-height: 1.7;
   margin-bottom: 20px;
+  flex-grow: 1;
 }
 
 .cardTags {
@@ -193,6 +171,7 @@
   justify-content: space-between;
   border-top: 1px solid var(--color-border);
   padding-top: 16px;
+  margin-top: auto;
 }
 
 .cardPlatform {
@@ -224,8 +203,176 @@
   box-shadow: 0 0 15px var(--color-red-glow);
 }
 
-@media (max-width: 480px) {
-  .gamesGrid {
+/* ===================================
+   Review Card Note (itch.io User Review)
+   =================================== */
+.reviewsColumn {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  align-self: flex-start;
+  width: 100%;
+}
+
+.reviewCard {
+  border: 1px solid var(--color-border-bright);
+  border-left: 3px solid var(--color-red-dark);
+  background: var(--color-surface);
+  position: relative;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-self: flex-start;
+  cursor: default;
+  user-select: text;
+  width: 100%;
+}
+
+
+.reviewBadgeHeader {
+  display: flex;
+  margin-bottom: 10px;
+}
+
+.reviewTag {
+  font-family: var(--font-pixel);
+  font-size: 0.38rem;
+  letter-spacing: 0.15em;
+  color: var(--color-red);
+  text-transform: uppercase;
+}
+
+.reviewHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.reviewHeaderLeft {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.reviewStars {
+  color: #ff3b3b;
+  font-size: 1rem;
+  letter-spacing: 2px;
+  text-shadow: 0 0 6px rgba(255, 59, 59, 0.4);
+  line-height: 1;
+}
+
+.reviewDate {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 0.78rem;
+  color: var(--color-gray-mid);
+  font-family: var(--font-body);
+}
+
+.reviewAuthorWrap {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.avatarIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.reviewAuthor {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--color-red);
+  font-family: var(--font-body);
+}
+
+.reviewScoreBadge {
+  font-size: 0.78rem;
+  color: var(--color-gray-mid);
+  font-family: var(--font-body);
+}
+
+.reviewBody {
+  padding-top: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.reviewTitle {
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: 0.88rem;
+  letter-spacing: 0.02em;
+  color: var(--color-white);
+  text-transform: uppercase;
+  margin-bottom: 2px;
+  line-height: 1.4;
+}
+
+.reviewBullets {
+  padding-left: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  color: rgba(255, 255, 255, 0.85);
+  font-size: 0.84rem;
+  line-height: 1.55;
+}
+
+.reviewBullets li {
+  line-height: 1.5;
+}
+
+.reviewText {
+  font-size: 0.84rem;
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.85);
+  font-family: var(--font-body);
+}
+
+.reviewParagraphs {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  font-size: 0.84rem;
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.85);
+  font-family: var(--font-body);
+}
+
+.reviewFooterNote {
+  font-size: 0.84rem;
+  font-weight: 500;
+  color: var(--color-white);
+  margin-top: 2px;
+  font-family: var(--font-body);
+}
+
+@media (max-width: 992px) {
+  .gameRow {
     grid-template-columns: 1fr;
   }
 }
+
+@media (max-width: 480px) {
+  .reviewHeader {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
+
