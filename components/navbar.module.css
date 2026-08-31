@@ -18,7 +18,7 @@
   backdrop-filter: blur(12px);
 }
 
-.navbar-inner {
+.navbarInner {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -26,7 +26,7 @@
 }
 
 /* Logo */
-.navbar-logo {
+.navbarLogo {
   font-family: var(--font-pixel);
   font-size: 0.75rem;
   letter-spacing: 0.05em;
@@ -38,23 +38,23 @@
   animation: logoFlicker 4s infinite;
 }
 
-.navbar-logo:hover {
+.navbarLogo:hover {
   color: var(--color-red);
 }
 
-.logo-bracket {
+.logoBracket {
   color: var(--color-red);
 }
 
 /* Nav links */
-.navbar-links {
+.navbarLinks {
   display: flex;
   align-items: center;
   gap: 32px;
   list-style: none;
 }
 
-.navbar-links a {
+.navbarLinks a {
   font-family: var(--font-pixel);
   font-size: 0.55rem;
   letter-spacing: 0.15em;
@@ -65,7 +65,7 @@
   position: relative;
 }
 
-.navbar-links a::after {
+.navbarLinks a::after {
   content: "";
   position: absolute;
   bottom: -4px;
@@ -76,16 +76,16 @@
   transition: width var(--transition-med);
 }
 
-.navbar-links a:hover {
+.navbarLinks a:hover {
   color: var(--color-red);
 }
 
-.navbar-links a:hover::after {
+.navbarLinks a:hover::after {
   width: 100%;
 }
 
 /* Hamburger */
-.navbar-toggle {
+.navbarToggle {
   display: none;
   flex-direction: column;
   gap: 5px;
@@ -95,7 +95,7 @@
   padding: 4px;
 }
 
-.navbar-toggle span {
+.navbarToggle span {
   display: block;
   width: 22px;
   height: 1px;
@@ -103,31 +103,31 @@
   transition: all var(--transition-med);
 }
 
-.navbar-toggle.open span:nth-child(1) {
+.navbarToggle.open span:nth-child(1) {
   transform: translateY(6px) rotate(45deg);
 }
-.navbar-toggle.open span:nth-child(2) {
+.navbarToggle.open span:nth-child(2) {
   opacity: 0;
 }
-.navbar-toggle.open span:nth-child(3) {
+.navbarToggle.open span:nth-child(3) {
   transform: translateY(-6px) rotate(-45deg);
 }
 
 /* Mobile menu */
-.navbar-mobile {
+.navbarMobile {
   display: none;
 }
 
 @media (max-width: 768px) {
-  .navbar-links {
+  .navbarLinks {
     display: none;
   }
 
-  .navbar-toggle {
+  .navbarToggle {
     display: flex;
   }
 
-  .navbar-mobile {
+  .navbarMobile {
     display: block;
     position: fixed;
     top: var(--nav-height);
@@ -142,18 +142,18 @@
     z-index: 999;
   }
 
-  .navbar-mobile.open {
+  .navbarMobile.open {
     transform: translateY(0);
   }
 
-  .navbar-mobile ul {
+  .navbarMobile ul {
     list-style: none;
     display: flex;
     flex-direction: column;
     gap: 24px;
   }
 
-  .navbar-mobile a {
+  .navbarMobile a {
     font-family: var(--font-pixel);
     font-size: 0.65rem;
     letter-spacing: 0.15em;
@@ -163,7 +163,7 @@
     transition: color var(--transition-fast);
   }
 
-  .navbar-mobile a:hover {
+  .navbarMobile a:hover {
     color: var(--color-red);
   }
 }

@@ -20,7 +20,7 @@ export const games: Game[] = [
     platform: "Windows",
     price: null,
     itchUrl: "https://frenzytimes.itch.io/broken-leash",
-    coverImage: "/broken_leash.jpg",
+    coverImage: "/broken_leash_thumb.png",
     tags: ["Horror", "Survival", "PSX"],
   },
   {
@@ -32,7 +32,7 @@ export const games: Game[] = [
     platform: "Windows",
     price: "$2.99",
     itchUrl: "https://frenzytimes.itch.io/crimson-faith",
-    coverImage: "/crimson_faith.jpg",
+    coverImage: "/crimson_faith_thumb.png",
     tags: ["Horror", "Adventure", "PSX"],
   },
   {
@@ -44,7 +44,8 @@ export const games: Game[] = [
     platform: "Windows",
     price: null,
     itchUrl: "https://frenzytimes.itch.io/prayers-from-the-abyss",
-    coverImage: "/prayers_abyss.jpg",
+    coverImage: "/prayers_abyss_thumb.png",
     tags: ["Horror", "Demo", "PSX"],
   },
 ];
+
