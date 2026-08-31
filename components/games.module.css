@@ -1,5 +1,18 @@
 .games {
+  position: relative;
   background: var(--color-black);
+  border-top: 1px solid var(--color-border);
+  overflow: hidden;
+}
+
+.games::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--color-red), transparent);
 }
 
 /* List of Game Rows */

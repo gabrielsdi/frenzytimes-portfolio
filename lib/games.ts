@@ -32,6 +32,13 @@ export const PRAYERS_FROM_THE_ABYSS_IMAGES = [
   "https://img.itch.zone/aW1hZ2UvMjUxMjcxNy8xNDkzNTQ4Mi5wbmc=/347x500/nh0Pkw.png",
 ];
 
+export const PRAYERS_FROM_THE_ABYSS_HIGH_RES_IMAGES = [
+  "https://img.itch.zone/aW1hZ2UvMjUxMjcxNy8xNDkzNTQ4MS5wbmc=/original/iFb7Lw.png",
+  "https://img.itch.zone/aW1hZ2UvMjUxMjcxNy8xNDkzNTQ4MC5wbmc=/original/Ikr6lV.png",
+  "https://img.itch.zone/aW1hZ2UvMjUxMjcxNy8xNDkzNTQ3OS5wbmc=/original/ZweooN.png",
+  "https://img.itch.zone/aW1hZ2UvMjUxMjcxNy8xNDkzNTQ4Mi5wbmc=/original/I0obKk.png",
+];
+
 export const BROKEN_LEASH_IMAGES = [
   "https://img.itch.zone/aW1hZ2UvMzkwOTUxOC8yMzMzNDg2MS5wbmc=/347x500/q5ipy2.png",
   "https://img.itch.zone/aW1hZ2UvMzkwOTUxOC8yMzMzNDg2MC5wbmc=/347x500/MZqlUf.png",
@@ -51,6 +58,13 @@ export const CRIMSON_FAITH_IMAGES = [
   "https://img.itch.zone/aW1hZ2UvMzUyNTU1MS8yMTIyNDQ5Mi5wbmc=/347x500/hwujs4.png",
   "https://img.itch.zone/aW1hZ2UvMzUyNTU1MS8yMTIyNDQ5My5wbmc=/347x500/FBy0Ab.png",
   "https://img.itch.zone/aW1hZ2UvMzUyNTU1MS8yMTIyNDQ5MS5wbmc=/347x500/qpOYq8.png",
+];
+
+export const CRIMSON_FAITH_HIGH_RES_IMAGES = [
+  "https://img.itch.zone/aW1hZ2UvMzUyNTU1MS8yMTIyNDQ5Mi5wbmc=/original/jfJrWe.png",
+  "https://img.itch.zone/aW1hZ2UvMzUyNTU1MS8yMTIyNDQ5My5wbmc=/original/70sdOK.png",
+  "https://img.itch.zone/aW1hZ2UvMzUyNTU1MS8yMTIyNDQ5MS5wbmc=/original/T0n63B.png",
+  "https://img.itch.zone/aW1hZ2UvMzUyNTU1MS8yMTIyNDQ5NC5wbmc=/original/r3f5TX.png",
 ];
 
 export const games: Game[] = [
@@ -106,6 +120,7 @@ export const games: Game[] = [
     itchUrl: "https://frenzytimes.itch.io/crimson-faith",
     coverImage: "https://img.itch.zone/aW1nLzIzNzkzMzcxLnBuZw==/315x250%23c/k3wQco.png",
     screenshots: CRIMSON_FAITH_IMAGES,
+    screenshotsHighRes: CRIMSON_FAITH_HIGH_RES_IMAGES,
     tags: ["Horror", "Adventure", "PSX"],
     reviews: [
       {
@@ -139,6 +154,7 @@ export const games: Game[] = [
     itchUrl: "https://frenzytimes.itch.io/prayers-from-the-abyss",
     coverImage: "https://img.itch.zone/aW1nLzIxMjQwNjI0LnBuZw==/315x250%23c/tYoOxT.png",
     screenshots: PRAYERS_FROM_THE_ABYSS_IMAGES,
+    screenshotsHighRes: PRAYERS_FROM_THE_ABYSS_HIGH_RES_IMAGES,
     tags: ["Horror", "DEMO", "PSX"],
     reviews: [
       {

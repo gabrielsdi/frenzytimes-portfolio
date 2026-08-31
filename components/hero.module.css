@@ -32,40 +32,53 @@
   animation: flicker 6s infinite;
 }
 
+/* VHS Top Bar (aligned with main content grid) */
+.vhsBar {
+  position: absolute;
+  top: 96px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  max-width: 1200px;
+  padding: 0 32px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  z-index: 10;
+  pointer-events: none;
+}
+
 /* VHS timestamp */
 .heroTimestamp {
-  position: absolute;
-  top: 90px;
-  left: 24px;
   font-family: var(--font-pixel);
-  font-size: 0.45rem;
+  font-size: 0.65rem;
   color: var(--color-red);
-  letter-spacing: 0.05em;
-  opacity: 0.7;
+  letter-spacing: 0.08em;
+  opacity: 0.95;
+  text-shadow: 0 0 10px rgba(221, 74, 74, 0.5);
   animation: flicker 3s infinite;
   user-select: none;
 }
 
 /* REC indicator */
 .heroRec {
-  position: absolute;
-  top: 90px;
-  right: 24px;
   display: flex;
   align-items: center;
-  gap: 6px;
+  gap: 8px;
   font-family: var(--font-pixel);
-  font-size: 0.45rem;
+  font-size: 0.65rem;
   color: var(--color-red);
-  letter-spacing: 0.15em;
+  letter-spacing: 0.18em;
+  text-shadow: 0 0 10px rgba(221, 74, 74, 0.5);
   user-select: none;
 }
 
 .recDot {
-  width: 6px;
-  height: 6px;
+  width: 9px;
+  height: 9px;
   border-radius: 50%;
   background: var(--color-red-bright);
+  box-shadow: 0 0 10px var(--color-red-bright);
   animation: recBlink 1.2s infinite;
 }
 
@@ -209,16 +222,14 @@
     display: none;
   }
 
-  .heroTimestamp {
-    top: 72px;
-    left: 16px;
-    z-index: 2;
+  .vhsBar {
+    top: 76px;
+    padding: 0 20px;
   }
 
+  .heroTimestamp,
   .heroRec {
-    top: 72px;
-    right: 16px;
-    z-index: 2;
+    font-size: 0.52rem;
   }
 
   .heroContent {

@@ -271,15 +271,13 @@ export default function Games() {
               <article className={styles.card} id={`game-card-${game.id}`}>
                 {/* Media Grid: Cover on Left, Carousel on Right */}
                 <div className={styles.cardMediaGrid}>
-                  {/* Cover Frame */}
-                  <div
+                  {/* Cover Frame (Links directly to itch.io page) */}
+                  <a
+                    href={game.itchUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
                     className={styles.mediaWrap}
-                    onClick={() =>
-                      handleOpenModal([game.coverImage], 0, `${game.title} - Cover Art`)
-                    }
-                    role="button"
-                    tabIndex={0}
-                    title="Click to view large image"
+                    title={`View ${game.title} on itch.io`}
                   >
                     <div className={styles.mediaBadge}>// COVER</div>
                     <Image
@@ -297,15 +295,16 @@ export default function Games() {
                         viewBox="0 0 24 24"
                         fill="none"
                         stroke="currentColor"
-                        strokeWidth="2"
+                        strokeWidth="2.2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
                       >
-                        <circle cx="11" cy="11" r="8" />
-                        <line x1="21" y1="21" x2="16.65" y2="16.65" />
-                        <line x1="11" y1="8" x2="11" y2="14" />
-                        <line x1="8" y1="11" x2="14" y2="11" />
+                        <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
+                        <polyline points="15 3 21 3 21 9" />
+                        <line x1="10" y1="14" x2="21" y2="3" />
                       </svg>
                     </div>
-                  </div>
+                  </a>
 
                   {/* Carousel Frame */}
                   <GameMediaCarousel
