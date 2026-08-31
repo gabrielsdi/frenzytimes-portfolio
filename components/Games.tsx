@@ -32,18 +32,7 @@ export default function Games() {
                   className={styles.cardImage}
                   priority={i === 0}
                 />
-                <div className={styles.cardOverlay}>
-                  <a
-                    href={game.itchUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className={styles.cardPlayBtn}
-                    aria-label={`Play ${game.title}`}
-                    id={`game-play-${game.id}`}
-                  >
-                    ▶
-                  </a>
-                </div>
+
               </div>
 
               {/* Content */}
@@ -51,9 +40,8 @@ export default function Games() {
                 <div className={styles.cardMeta}>
                   <span className={styles.cardGenre}>{game.genre}</span>
                   <span
-                    className={`${styles.cardPrice} ${
-                      !game.price ? styles.cardPriceFree : ""
-                    }`}
+                    className={`${styles.cardPrice} ${!game.price ? styles.cardPriceFree : ""
+                      }`}
                   >
                     {game.price ?? "Free"}
                   </span>

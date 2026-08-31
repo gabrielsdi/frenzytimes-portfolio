@@ -55,18 +55,6 @@ export default function About() {
                 </span>
               ))}
             </div>
-
-            <div className={styles.aboutLinks}>
-              <a
-                href="https://www.youtube.com/@frenzytimes"
-                className="btn btn-outline"
-                target="_blank"
-                rel="noopener noreferrer"
-                id="about-youtube-link"
-              >
-                ▶ YouTube Channel
-              </a>
-            </div>
           </div>
 
           {/* Right — Stats */}
