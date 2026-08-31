@@ -184,6 +184,7 @@ function GameMediaCarousel({
           fill
           sizes="(max-width: 768px) 100vw, 25vw"
           className={styles.mediaImage}
+          loading="lazy"
         />
         <div className={styles.zoomHint}>
           <svg

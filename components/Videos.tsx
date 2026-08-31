@@ -1,4 +1,7 @@
+"use client";
+
 import Image from "next/image";
+import { useState } from "react";
 import styles from "./videos.module.css";
 
 interface Video {
@@ -48,13 +51,126 @@ const shortsVideos: Video[] = [
   },
 ];
 
+/* ---------- Click-to-play Devlog Embed ---------- */
+function DevlogEmbed({ video }: { video: Video }) {
+  const [active, setActive] = useState(false);
+
+  if (active) {
+    return (
+      <div className={styles.devlogPlayerWrapper}>
+        <iframe
+          src={`https://www.youtube.com/embed/${video.youtubeId}?rel=0&autoplay=1`}
+          title={video.title}
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          allowFullScreen
+          className={styles.iframe}
+        />
+      </div>
+    );
+  }
+
+  return (
+    <button
+      type="button"
+      className={styles.devlogPlayerWrapper}
+      onClick={() => setActive(true)}
+      aria-label={`Play ${video.title}`}
+      id={`play-devlog-${video.id}`}
+    >
+      <Image
+        src={`https://img.youtube.com/vi/${video.youtubeId}/hqdefault.jpg`}
+        alt={`${video.title} thumbnail`}
+        fill
+        sizes="(max-width: 768px) 100vw, 750px"
+        className={styles.thumbImage}
+        priority
+      />
+      {/* Scanlines overlay */}
+      <div className={styles.thumbScanlines} aria-hidden="true" />
+      {/* Play button */}
+      <div className={styles.playOverlay} aria-hidden="true">
+        <div className={styles.playBtn}>▶</div>
+        <span className={styles.playLabel}>PLAY VIDEO</span>
+      </div>
+    </button>
+  );
+}
+
+/* ---------- Click-to-play Short Embed ---------- */
+function ShortEmbed({ video }: { video: Video }) {
+  const [active, setActive] = useState(false);
+
+  if (video.isAgeRestricted) {
+    return (
+      <a
+        href={video.url}
+        target="_blank"
+        rel="noopener noreferrer"
+        className={styles.ageRestrictedLink}
+      >
+        <div className={styles.shortThumb}>
+          <Image
+            src={`https://img.youtube.com/vi/${video.youtubeId}/hqdefault.jpg`}
+            alt={video.title}
+            fill
+            sizes="(max-width: 768px) 100vw, 33vw"
+            className={styles.thumbImageShort}
+          />
+          <div className={styles.ageBadge}>⚠️ 18+ AGE RESTRICTED</div>
+          <div className={styles.agePlayOverlay}>
+            <span className={styles.agePlayBtn}>▶ WATCH ON YOUTUBE</span>
+          </div>
+        </div>
+      </a>
+    );
+  }
+
+  if (active) {
+    return (
+      <div className={styles.shortPlayerWrapper}>
+        <iframe
+          src={`https://www.youtube.com/embed/${video.youtubeId}?rel=0&autoplay=1`}
+          title={video.title}
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          allowFullScreen
+          className={styles.iframe}
+        />
+      </div>
+    );
+  }
+
+  return (
+    <button
+      type="button"
+      className={styles.shortPlayerWrapper}
+      onClick={() => setActive(true)}
+      aria-label={`Play ${video.title}`}
+      id={`play-short-${video.id}`}
+    >
+      <Image
+        src={`https://img.youtube.com/vi/${video.youtubeId}/hqdefault.jpg`}
+        alt={`${video.title} thumbnail`}
+        fill
+        sizes="(max-width: 768px) 100vw, 33vw"
+        className={styles.thumbImageShort}
+      />
+      <div className={styles.thumbScanlines} aria-hidden="true" />
+      <div className={styles.playOverlay} aria-hidden="true">
+        <div className={styles.playBtn}>▶</div>
+        <span className={styles.playLabel}>PLAY SHORT</span>
+      </div>
+    </button>
+  );
+}
+
+/* ---------- Main Section ---------- */
 export default function Videos() {
   return (
     <section id="videos" className={`section ${styles.videos}`}>
       <div className="container">
         <div className="section-header">
-          <span className="section-label">// videos & shorts</span>
-          <h2 className="section-title">Devlogs & Gameplay</h2>
+          <span className="section-label">// videos &amp; shorts</span>
+          <h2 className="section-title">Devlogs &amp; Gameplay</h2>
           <div className="section-divider" />
         </div>
 
@@ -72,16 +188,7 @@ export default function Videos() {
             [FEATURED DEVLOG]
           </h3>
           <div className={styles.devlogCard} id={`video-card-${devlogVideo.id}`}>
-            <div className={styles.devlogPlayerWrapper}>
-              <iframe
-                src={`https://www.youtube.com/embed/${devlogVideo.youtubeId}?rel=0`}
-                title={devlogVideo.title}
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                allowFullScreen
-                loading="lazy"
-                className={styles.iframe}
-              />
-            </div>
+            <DevlogEmbed video={devlogVideo} />
             <div className={styles.videoInfo}>
               <p className={styles.videoTitle} style={{ fontSize: "0.7rem" }}>
                 {devlogVideo.title}
@@ -107,39 +214,7 @@ export default function Videos() {
           <div className={styles.shortsGrid}>
             {shortsVideos.map((video) => (
               <div key={video.id} className={styles.shortCard} id={`video-card-${video.id}`}>
-                {video.isAgeRestricted ? (
-                  <a
-                    href={video.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className={styles.ageRestrictedLink}
-                  >
-                    <div className={styles.shortThumb}>
-                      <Image
-                        src={`https://img.youtube.com/vi/${video.youtubeId}/hqdefault.jpg`}
-                        alt={video.title}
-                        fill
-                        sizes="(max-width: 768px) 100vw, 33vw"
-                        unoptimized
-                      />
-                      <div className={styles.ageBadge}>⚠️ 18+ AGE RESTRICTED</div>
-                      <div className={styles.agePlayOverlay}>
-                        <span className={styles.agePlayBtn}>▶ WATCH ON YOUTUBE</span>
-                      </div>
-                    </div>
-                  </a>
-                ) : (
-                  <div className={styles.shortPlayerWrapper}>
-                    <iframe
-                      src={`https://www.youtube.com/embed/${video.youtubeId}?rel=0`}
-                      title={video.title}
-                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                      allowFullScreen
-                      loading="lazy"
-                      className={styles.iframe}
-                    />
-                  </div>
-                )}
+                <ShortEmbed video={video} />
 
                 <div className={styles.videoInfo}>
                   <p className={styles.videoTitle}>{video.title}</p>
@@ -177,6 +252,3 @@ export default function Videos() {
     </section>
   );
 }
-
-
-
