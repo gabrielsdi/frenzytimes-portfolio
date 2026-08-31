@@ -12,24 +12,62 @@ const navLinks = [
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
+  const [visible, setVisible] = useState(true);
   const [menuOpen, setMenuOpen] = useState(false);
 
   useEffect(() => {
+    let prevScrollY = window.scrollY;
+
     const handleScroll = () => {
-      setScrolled(window.scrollY > 50);
-      setMenuOpen(false);
+      const currentScrollY = window.scrollY;
+
+      setScrolled(currentScrollY > 50);
+
+      if (currentScrollY > 60) {
+        if (currentScrollY > prevScrollY && currentScrollY - prevScrollY > 5) {
+          setVisible(false);
+        } else if (prevScrollY - currentScrollY > 5) {
+          setVisible(true);
+        }
+      } else {
+        setVisible(true);
+      }
+
+      prevScrollY = currentScrollY;
     };
+
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   const handleNavClick = () => setMenuOpen(false);
 
+  const handleLogoClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    e.preventDefault();
+    window.scrollTo({ top: 0, behavior: "smooth" });
+    if (window.location.hash) {
+      window.history.pushState(
+        "",
+        document.title,
+        window.location.pathname + window.location.search
+      );
+    }
+  };
+
   return (
     <>
-      <nav className={`${styles.navbar} ${scrolled ? styles.scrolled : ""}`}>
+      <nav
+        className={`${styles.navbar} ${scrolled ? styles.scrolled : ""} ${
+          !visible && !menuOpen ? styles.hidden : ""
+        }`}
+      >
         <div className={`container ${styles.navbarInner}`}>
-          <a href="#hero" className={styles.navbarLogo} id="nav-logo">
+          <a
+            href="#"
+            className={styles.navbarLogo}
+            id="nav-logo"
+            onClick={handleLogoClick}
+          >
             <span className={styles.logoBracket}>[</span>
             frenzytimes
             <span className={styles.logoBracket}>]</span>
