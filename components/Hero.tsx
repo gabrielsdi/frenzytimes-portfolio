@@ -6,15 +6,22 @@ import logoImg from "../public/logo.png";
 import styles from "./hero.module.css";
 
 export default function Hero() {
-  const [time, setTime] = useState("");
+  const [timestamp, setTimestamp] = useState("");
 
   useEffect(() => {
     const update = () => {
       const now = new Date();
       const pad = (n: number) => String(n).padStart(2, "0");
-      setTime(
-        `${pad(now.getHours())}:${pad(now.getMinutes())}:${pad(now.getSeconds())}`
-      );
+
+      const month = pad(now.getUTCMonth() + 1);
+      const day = pad(now.getUTCDate());
+      const year = now.getUTCFullYear();
+
+      const hours = pad(now.getUTCHours());
+      const minutes = pad(now.getUTCMinutes());
+      const seconds = pad(now.getUTCSeconds());
+
+      setTimestamp(`${month}/${day}/${year} ${hours}:${minutes}:${seconds}`);
     };
     update();
     const interval = setInterval(update, 1000);
@@ -27,14 +34,7 @@ export default function Hero() {
 
       {/* VHS Top Bar (Timestamp & REC) */}
       <div className={styles.vhsBar} aria-hidden="true">
-        <div className={styles.heroTimestamp}>
-          {new Date().toLocaleDateString("en-US", {
-            year: "numeric",
-            month: "2-digit",
-            day: "2-digit",
-          })}{" "}
-          {time}
-        </div>
+        <div className={styles.heroTimestamp}>{timestamp}</div>
 
         <div className={styles.heroRec}>
           <span className={styles.recDot} />

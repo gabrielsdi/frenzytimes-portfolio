@@ -20,9 +20,9 @@
   --color-red-glow-strong: rgba(221, 74, 74, 0.35);
 
   --color-white: #ffffff;
-  --color-gray-light: rgba(255, 255, 255, 0.75);
-  --color-gray-mid: rgba(255, 255, 255, 0.5);
-  --color-gray-dim: rgba(255, 255, 255, 0.25);
+  --color-gray-light: #d1d1d1;
+  --color-gray-mid: #a8a8a8;
+  --color-gray-dim: #737373;
 
   --font-pixel: "Press Start 2P", monospace;
   --font-body: "Inter", sans-serif;
