@@ -47,7 +47,7 @@ export default function Navbar() {
     window.scrollTo({ top: 0, behavior: "smooth" });
     if (window.location.hash) {
       window.history.pushState(
-        "",
+        null,
         document.title,
         window.location.pathname + window.location.search
       );
